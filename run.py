@@ -45,7 +45,7 @@ class Body:
 #Create the Bodies and a list of  them to loop over
 
 TimeStep = 1
-nTimeSteps = 10 * 24 *60 * 60
+nTimeSteps = 5 * 24 *60 * 60
 CheckInTime = 60*60*24  #How frequently to output progress in seconds
 
 Sun = Body(2e30,0.,0.,0.,0.)

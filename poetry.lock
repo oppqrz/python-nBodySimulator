@@ -1,8 +1,15 @@
-package = []
+[[package]]
+name = "numpy"
+version = "2.0.0"
+description = "Fundamental package for array computing in Python"
+category = "main"
+optional = false
+python-versions = ">=3.9"
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "17ca553b0bb9298a6ed528dd21e544ca433179192dba32a9920168e1c199d74f"
+content-hash = "6b69c7df3f0faacc11238110f6ccc72d86627aa13a2e60f97450f9e374a5d1ae"
 
 [metadata.files]
+numpy = []
