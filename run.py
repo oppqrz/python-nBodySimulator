@@ -44,8 +44,9 @@ class Body:
 
 #Create the Bodies and a list of  them to loop over
 
-TimeStep = 3600
+TimeStep = 1
 nTimeSteps = 10 * 24 *60 * 60
+CheckInTime = 60*60*24  #How frequently to output progress in seconds
 
 Sun = Body(2e30,0.,0.,0.,0.)
 Mercury = Body(3.3e23,0,57e9,47.3e3 ,0)
@@ -65,8 +66,8 @@ for nT in range(nTimeSteps):
                 BodyPrimay.UpdateVelocity(BodySecondary)
                 
         BodyPrimay.UpdatePosition(TimeStep)
-    if(nT % (24 * 60* 60) == 0):
-        print(nT /(24*60*60))
+    if(nT % CheckInTime == 0):
+        print(f"Day: {nT /CheckInTime}") 
 
 plt.plot(Bodies[0].Xarray,Bodies[0].Yarray,"o")
 plt.plot(Bodies[1].Xarray,Bodies[1].Yarray,"o")
