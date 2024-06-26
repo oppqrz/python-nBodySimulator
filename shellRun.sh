@@ -1,1 +1,1 @@
-time python3 run.py
+time poetry run python3 run.py
