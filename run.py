@@ -13,8 +13,10 @@ class Body:
         self.VelX = VelX
         self.VelY = VelY
 
-        self.Xarray = np.array([PosX])
-        self.Yarray = np.array([PosY])
+        #self.Xarray = np.array([PosX])
+        self.Xarray = [PosX]
+        #self.Yarray = np.array([PosY])
+        self.Yarray = [PosY]
         
     
     def GetDistance(self,OtherBody):
@@ -35,9 +37,11 @@ class Body:
     def UpdatePosition(self,TimeStep):
         self.PosX += self.VelX*TimeStep
         self.PosY += self.VelY*TimeStep
-        self.Xarray = np.append(self.Xarray,[self.PosX])
+        #self.Xarray = np.append(self.Xarray,[self.PosX])
+        self.Xarray.append(self.PosX)
         #print(self.Xarray)
-        self.Yarray = np.append(self.Yarray,[self.PosY])
+        #self.Yarray = np.append(self.Yarray,[self.PosY])
+        self.Yarray.append(self.PosY)
         #print(self.Yarray)
 
 
@@ -45,7 +49,7 @@ class Body:
 #Create the Bodies and a list of  them to loop over
 
 TimeStep = 1
-nTimeSteps = 5 * 24 *60 * 60
+nTimeSteps = 365 * 24 *60 * 60
 CheckInTime = 60*60*24  #How frequently to output progress in seconds
 
 Sun = Body(2e30,0.,0.,0.,0.)
@@ -69,10 +73,12 @@ for nT in range(nTimeSteps):
     if(nT % CheckInTime == 0):
         print(f"Day: {nT /CheckInTime}") 
 
-plt.plot(Bodies[0].Xarray,Bodies[0].Yarray,"o")
-plt.plot(Bodies[1].Xarray,Bodies[1].Yarray,"o")
-plt.plot(Bodies[2].Xarray,Bodies[2].Yarray,"o")
-plt.plot(Bodies[3].Xarray,Bodies[3].Yarray,"o")
-plt.plot(Bodies[4].Xarray,Bodies[4].Yarray,"o")
 
-plt.show()
+
+plt.plot(np.array(Bodies[0].Xarray),np.array(Bodies[0].Yarray),"o")
+plt.plot(np.array(Bodies[1].Xarray),np.array(Bodies[1].Yarray),"o")
+plt.plot(np.array(Bodies[2].Xarray),np.array(Bodies[2].Yarray),"o")
+plt.plot(np.array(Bodies[3].Xarray),np.array(Bodies[3].Yarray),"o")
+plt.plot(np.array(Bodies[4].Xarray),np.array(Bodies[4].Yarray),"o")
+
+#plt.show()
