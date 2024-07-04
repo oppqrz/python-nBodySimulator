@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt 
+#import matplotlib.pyplot as plt 
 import numpy as np
 
 
@@ -13,8 +13,8 @@ class Body:
         self.vel_x = vel_x
         self.vel_y = vel_y
 
-        self.x_array = [pos_x]
-        self.y_array = [pos_y]
+        #self.x_array = [pos_x]
+        #self.y_array = [pos_y]
         
     
     def get_distance(self,other_body):
@@ -35,8 +35,8 @@ class Body:
     def update_position(self,TimeStep):
         self.pos_x += self.vel_x*TimeStep
         self.pos_y += self.vel_y*TimeStep
-        self.x_array.append(self.pos_x)
-        self.y_array.append(self.pos_y)
+        #self.x_array.append(self.pos_x)
+        #self.y_array.append(self.pos_y)
 
 
 
