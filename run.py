@@ -17,18 +17,18 @@ class Body:
         self.y_array = [pos_y]
         
     
-    def get_distance(self,OtherBody):
-        DisX2 = (self.pos_x - OtherBody.pos_x)**2
-        DisY2 = (self.pos_y - OtherBody.pos_y)**2
-        return (DisX2 + DisY2)**0.5
+    def get_distance(self,other_body):
+        Dist_x2 = (self.pos_x - other_body.pos_x)**2
+        Dist_y2 = (self.pos_y - other_body.pos_y)**2
+        return (Dist_x2 + Dist_y2)**0.5
 
-    def get_acceleration(self,OtherBody):
-        AceelerationX = -(self.pos_x - OtherBody.pos_x) * G * OtherBody.mass /(self.GetDistance(OtherBody)**3)
-        AceelerationY = -(self.pos_y - OtherBody.pos_y) * G * OtherBody.mass /(self.GetDistance(OtherBody)**3)
-        return {"X" : AceelerationX, "Y" : AceelerationY}
+    def get_acceleration(self,other_body):
+        acel_x = -(self.pos_x - other_body.pos_x) * G * other_body.mass /(self.get_distance(other_body)**3)
+        acel_y = -(self.pos_y - other_body.pos_y) * G * other_body.mass /(self.get_distance(other_body)**3)
+        return {"X" : acel_x, "Y" : acel_y}
 
-    def update_velocity(self,OtherBody):
-        Acel = self.GetAcelleration(OtherBody)
+    def update_velocity(self,other_body):
+        Acel = self.GetAcelleration(other_body)
         self.vel_x += Acel["X"]
         self.vel_y += Acel["Y"]
         
@@ -42,9 +42,9 @@ class Body:
 
 #Create the Bodies and a list of  them to loop over
 
-TimeStep = 1
-nTimeSteps = 365 * 24 *60 * 60
-CheckInTime = 60*60*24  #How frequently to output progress in seconds
+time_step = 1
+n_time_steps = 365 * 24 *60 * 60
+check_in_time = 60*60*24  #How frequently to output progress in seconds
 
 Sun = Body(2e30,0.,0.,0.,0.)
 Mercury = Body(3.3e23,0,57e9,47.3e3 ,0)
@@ -55,17 +55,17 @@ Mars = Body(6.4e23,0,227e9,24e3 ,0)
 Bodies = [Sun,Mercury,Venus,Earth,Mars]
 
 
-for nT in range(nTimeSteps):
+for nT in range(n_time_steps):
     for BodyPrimay in Bodies:
         for BodySecondary in Bodies:
             if BodyPrimay == BodySecondary:
                 continue
             else:
-                BodyPrimay.UpdateVelocity(BodySecondary)
+                BodyPrimay.update_velocity(BodySecondary)
                 
-        BodyPrimay.UpdatePosition(TimeStep)
-    if(nT % CheckInTime == 0):
-        print(f"Time Passed: {nT /CheckInTime} Days") 
+        BodyPrimay.update_position(time_step)
+    if(nT % check_in_time == 0):
+        print(f"Time Passed: {nT /check_in_time} Days") 
 
 
 
