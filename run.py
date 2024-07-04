@@ -6,43 +6,37 @@ G = 6.67e-11
 
 #define the body Class
 class Body:
-    def __init__(self,Mass,PosX,PosY,VelX,VelY):
-        self.Mass = Mass
-        self.PosX = PosX
-        self.PosY = PosY
-        self.VelX = VelX
-        self.VelY = VelY
+    def __init__(self,mass,pos_x,pos_y,vel_x,vel_y):
+        self.mass = mass
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.vel_x = vel_x
+        self.vel_y = vel_y
 
-        #self.Xarray = np.array([PosX])
-        self.Xarray = [PosX]
-        #self.Yarray = np.array([PosY])
-        self.Yarray = [PosY]
+        self.x_array = [pos_x]
+        self.y_array = [pos_y]
         
     
-    def GetDistance(self,OtherBody):
-        DisX2 = (self.PosX - OtherBody.PosX)**2
-        DisY2 = (self.PosY - OtherBody.PosY)**2
+    def get_distance(self,OtherBody):
+        DisX2 = (self.pos_x - OtherBody.pos_x)**2
+        DisY2 = (self.pos_y - OtherBody.pos_y)**2
         return (DisX2 + DisY2)**0.5
 
-    def GetAcelleration(self,OtherBody):
-        AceelerationX = -(self.PosX - OtherBody.PosX) * G * OtherBody.Mass /(self.GetDistance(OtherBody)**3)
-        AceelerationY = -(self.PosY - OtherBody.PosY) * G * OtherBody.Mass /(self.GetDistance(OtherBody)**3)
+    def get_acceleration(self,OtherBody):
+        AceelerationX = -(self.pos_x - OtherBody.pos_x) * G * OtherBody.mass /(self.GetDistance(OtherBody)**3)
+        AceelerationY = -(self.pos_y - OtherBody.pos_y) * G * OtherBody.mass /(self.GetDistance(OtherBody)**3)
         return {"X" : AceelerationX, "Y" : AceelerationY}
 
-    def UpdateVelocity(self,OtherBody):
+    def update_velocity(self,OtherBody):
         Acel = self.GetAcelleration(OtherBody)
-        self.VelX += Acel["X"]
-        self.VelY += Acel["Y"]
+        self.vel_x += Acel["X"]
+        self.vel_y += Acel["Y"]
         
-    def UpdatePosition(self,TimeStep):
-        self.PosX += self.VelX*TimeStep
-        self.PosY += self.VelY*TimeStep
-        #self.Xarray = np.append(self.Xarray,[self.PosX])
-        self.Xarray.append(self.PosX)
-        #print(self.Xarray)
-        #self.Yarray = np.append(self.Yarray,[self.PosY])
-        self.Yarray.append(self.PosY)
-        #print(self.Yarray)
+    def update_position(self,TimeStep):
+        self.pos_x += self.vel_x*TimeStep
+        self.pos_y += self.vel_y*TimeStep
+        self.x_array.append(self.pos_x)
+        self.y_array.append(self.pos_y)
 
 
 
@@ -71,14 +65,14 @@ for nT in range(nTimeSteps):
                 
         BodyPrimay.UpdatePosition(TimeStep)
     if(nT % CheckInTime == 0):
-        print(f"Day: {nT /CheckInTime}") 
+        print(f"Time Passed: {nT /CheckInTime} Days") 
 
 
 
-plt.plot(np.array(Bodies[0].Xarray),np.array(Bodies[0].Yarray),"o")
-plt.plot(np.array(Bodies[1].Xarray),np.array(Bodies[1].Yarray),"o")
-plt.plot(np.array(Bodies[2].Xarray),np.array(Bodies[2].Yarray),"o")
-plt.plot(np.array(Bodies[3].Xarray),np.array(Bodies[3].Yarray),"o")
-plt.plot(np.array(Bodies[4].Xarray),np.array(Bodies[4].Yarray),"o")
+#plt.plot(np.array(Bodies[0].x_array),np.array(Bodies[0].y_array),"o")
+#plt.plot(np.array(Bodies[1].x_array),np.array(Bodies[1].y_array),"o")
+#plt.plot(np.array(Bodies[2].x_array),np.array(Bodies[2].y_array),"o")
+#plt.plot(np.array(Bodies[3].x_array),np.array(Bodies[3].y_array),"o")
+#plt.plot(np.array(Bodies[4].x_array),np.array(Bodies[4].y_array),"o")
 
 #plt.show()
