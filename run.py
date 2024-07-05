@@ -1,5 +1,5 @@
 #import matplotlib.pyplot as plt 
-import numpy as np
+#import numpy as np
 
 
 G = 6.67e-11
@@ -18,17 +18,17 @@ class Body:
         
     
     def get_distance(self,other_body):
-        Dist_x2 = (self.pos_x - other_body.pos_x)**2
-        Dist_y2 = (self.pos_y - other_body.pos_y)**2
-        return (Dist_x2 + Dist_y2)**0.5
+        dist_x2 = (self.pos_x - other_body.pos_x)**2
+        dist_y2 = (self.pos_y - other_body.pos_y)**2
+        return (dist_x2 + dist_y2)**0.5
 
     def get_acceleration(self,other_body):
         acel_x = -(self.pos_x - other_body.pos_x) * G * other_body.mass /(self.get_distance(other_body)**3)
         acel_y = -(self.pos_y - other_body.pos_y) * G * other_body.mass /(self.get_distance(other_body)**3)
-        return {"X" : acel_x, "Y" : acel_y}
+        return [acel_x,acel_y]
 
     def update_velocity(self,other_body):
-        Acel = self.GetAcelleration(other_body)
+        Acel = self.get_acceleration(other_body)
         self.vel_x += Acel["X"]
         self.vel_y += Acel["Y"]
         
@@ -56,14 +56,14 @@ Bodies = [Sun,Mercury,Venus,Earth,Mars]
 
 
 for nT in range(n_time_steps):
-    for BodyPrimay in Bodies:
-        for BodySecondary in Bodies:
-            if BodyPrimay == BodySecondary:
+    for body_primary in Bodies:
+        for body_secondary in Bodies:
+            if body_primary == body_secondary:
                 continue
             else:
-                BodyPrimay.update_velocity(BodySecondary)
+                body_primary.update_velocity(body_secondary)
                 
-        BodyPrimay.update_position(time_step)
+        body_primary.update_position(time_step)
     if(nT % check_in_time == 0):
         print(f"Time Passed: {nT /check_in_time} Days") 
 
